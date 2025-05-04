@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ほよタイマー</title>
+    <style>
+      @font-face {
+        font-family: "DIN";
+        src: url("./fonts/DINVL-P.ttf");
+      }
+      * {
+        font-family: "DIN", sans-serif;
+        text-align: center;
+        box-sizing: border-box;
+        line-height: 1em;
+        margin: 0;
+        padding: 0;
+      }
+      h2 {
+        font-size: 150%;
+        height: 3em;
+        border-bottom: 2px solid black;
+        padding: 1em 0;
+      }
+      h3 {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        font-size: 300%;
+        margin: 0;
+      }
+      h4 {
+        margin: 1em 0;
+      }
+      p {
+        line-height: 1.2em;
+      }
+      .stamina {
+        font-size: 160%;
+      }
+      [id$="Threshold"] {
+        font-size: 100%;
+        width: 4em;
+        height: 2em;
+      }
+      [id$="Threshold"]::-webkit-inner-spin-button,
+      [id$="Threshold"]::-webkit-outer-spin-button {
+        appearance: none;
+      }
+      .thresTxt {
+        display: inline-block;
+        margin-bottom: 1em;
+      }
+      #container {
+        display: flex;
+      }
+      #giArea,
+      #hsrArea,
+      #zzzArea {
+        flex-grow: 1;
+        min-height: calc(100vh - 1.8rem - 6rem);
+      }
+      #hsrArea {
+        border-left: 2px solid black;
+        border-right: 2px solid black;
+      }
+      #testArea {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 3em;
+        border-top: 2px solid black;
+        background-color: white;
+        z-index: 99;
+      }
+      .increBtns {
+        margin: 2em 0;
+        padding: 0 1em;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 12px;
+        column-gap: 8px;
+      }
+      .increBtns > * {
+        width: 80px;
+        height: 40px;
+        font-size: 120%;
+      }
+      hr {
+        height: 2px;
+        background-color: black;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ほよタイマー</h2>
+    <div id="container">
+      <div id="giArea">
+        <h4>原神</h4>
+        <h3 class="time" id="gi-status"></h3>
+        <h4><span id="gi-maxTime">今日 00:00</span>に全回復</h4>
+        <h3 class="stamina">現在 <span id="gi-stamina"></span></h3>
+        <br />
+        <div class="increBtns">
+          <button id="gi-minus60" onclick="updateGiTimer(-60)">-60</button>
+          <button id="gi-minus40" onclick="updateGiTimer(-40)">-40</button>
+          <button id="gi-minus30" onclick="updateGiTimer(-30)">-30</button>
+          <button id="gi-minus10" onclick="updateGiTimer(-10)">-10</button>
+          <button id="gi-minus1" onclick="updateGiTimer(-1)">-1</button>
+          <button id="gi-plus1" onclick="updateGiTimer(1)">+1</button>
+          <button id="gi-plus60" onclick="updateGiTimer(60)">+60</button>
+        </div>
+        <input type="number" id="giNotifyThreshold" /><span class="thresTxt">まで回復したら通知</span>
+      </div>
+      <div id="hsrArea">
+        <h4>スタレ</h4>
+        <h3 class="time" id="hsr-status"></h3>
+        <h4><span id="hsr-maxTime">今日 00:00</span>に全回復</h4>
+        <h3 class="stamina">現在 <span id="hsr-stamina"></span></h3>
+        <br />
+        <div class="increBtns">
+          <button id="hsr-minus60" onclick="updateHsrTimer(-60)">-60</button>
+          <button id="hsr-minus40" onclick="updateHsrTimer(-40)">-40</button>
+          <button id="hsr-minus30" onclick="updateHsrTimer(-30)">-30</button>
+          <button id="hsr-minus10" onclick="updateHsrTimer(-10)">-10</button>
+          <button id="hsr-minus1" onclick="updateHsrTimer(-1)">-1</button>
+          <button id="hsr-plus1" onclick="updateHsrTimer(1)">+1</button>
+          <button id="hsr-plus60" onclick="updateHsrTimer(60)">+60</button>
+        </div>
+        <input type="number" id="hsrNotifyThreshold" /><span class="thresTxt">まで回復したら通知</span>
+      </div>
+      <div id="zzzArea">
+        <h4>ゼンゼロ</h4>
+        <h3 class="time" id="zzz-status"></h3>
+        <h4><span id="zzz-maxTime">今日 00:00</span>に全回復</h4>
+        <h3 class="stamina">現在 <span id="zzz-stamina"></span></h3>
+        <br />
+        <div class="increBtns">
+          <button id="zzz-minus60" onclick="updateZzzTimer(-60)">-60</button>
+          <button id="zzz-minus40" onclick="updateZzzTimer(-40)">-40</button>
+          <button id="zzz-minus30" onclick="updateZzzTimer(-30)">-30</button>
+          <button id="zzz-minus10" onclick="updateZzzTimer(-10)">-10</button>
+          <button id="zzz-minus1" onclick="updateZzzTimer(-1)">-1</button>
+          <button id="zzz-plus1" onclick="updateZzzTimer(1)">+1</button>
+          <button id="zzz-plus60" onclick="updateZzzTimer(60)">+60</button>
+        </div>
+        <input type="number" id="zzzNotifyThreshold" /><span class="thresTxt">まで回復したら通知</span>
+      </div>
+    </div>
+    <div id="testArea">
+      <p>
+        通知のテストをここから行えます >
+        <button id="testNotifyBtn">通知送信</button>
+      </p>
+      <p>ウィンドウを閉じても動作します</p>
+    </div>
+    <script src="renderer.js"></script>
+  </body>
+</html>
