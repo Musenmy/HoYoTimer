@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="./style.css" />
+    <script type="module" src="./main.js" defer></script>
+    <title>System Overview — Tauri</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="logo">W</div>
+        <div>
+          <h1>Device Info</h1>
+          <p class="lead">powered by Tauri</p>
+        </div>
+        <div class="controls" style="margin-left: auto; align-items: center">
+          <button id="refreshBtn">Refresh</button>
+          <button id="toggleAuto" class="primary">Auto Refresh: ON</button>
+        </div>
+      </header>
+
+      <main class="grid">
+        <!-- CPU カード -->
+        <section class="card" id="card-cpu">
+          <h2>CPU</h2>
+          <div class="meta" id="cpu-brand">—</div>
+          <div class="item-list">
+            <div>
+              <div class="item">
+                <div class="k">Cores</div>
+                <div class="v" id="cpu-physical">—</div>
+              </div>
+              <div class="item">
+                <div class="k">Threads</div>
+                <div class="v" id="cpu-logical">—</div>
+              </div>
+            </div>
+            <div id="cpu-cache"></div>
+
+            <div>
+              <div class="item">
+                <div class="k">Usage</div>
+                <div class="v" id="cpu-usage-text">—</div>
+              </div>
+              <div class="bar" aria-hidden><i id="cpu-usage-bar"></i></div>
+            </div>
+            <br />
+            <div id="cpu-list"></div>
+          </div>
+        </section>
+
+        <!-- GPU カード -->
+        <section class="card" id="card-gpu">
+          <h2>GPU</h2>
+          <div class="meta">Detected GPUs</div>
+          <div class="item-list" id="gpu-list">
+            <div class="small">—</div>
+          </div>
+        </section>
+
+        <!-- RAM カード -->
+        <section class="card" id="card-ram">
+          <h2>RAM</h2>
+          <div class="meta">Memory Info</div>
+          <div class="item-list">
+            <div class="item">
+              <div class="k">Total</div>
+              <div class="v" id="mem-total">—</div>
+            </div>
+            <div class="item">
+              <div class="k">Used</div>
+              <div class="v" id="mem-used">—</div>
+            </div>
+            <div>
+              <div class="item">
+                <div class="k">Usage</div>
+                <div class="v" id="mem-usage-text">—</div>
+              </div>
+              <div class="bar"><i id="mem-usage-bar"></i></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Disk カード -->
+        <section class="card" id="card-disk">
+          <h2>Disk</h2>
+          <div class="meta">Detected Partitions</div>
+          <div class="item-list" id="disk-list">
+            <div class="small">—</div>
+          </div>
+        </section>
+
+        <!-- Network カード -->
+        <section class="card" id="card-net">
+          <h2>Network</h2>
+          <div class="meta">Transmission Info</div>
+          <div class="item-list" id="net-list">
+            <div class="small">—</div>
+          </div>
+        </section>
+
+        <!-- 余白カード（レイアウト調整用） -->
+        <section class="card" id="card-sys">
+          <h2>System</h2>
+          <div class="meta">Software Info</div>
+          <div class="item-list" id="os-info">
+            
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
